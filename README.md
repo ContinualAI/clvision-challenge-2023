@@ -62,7 +62,7 @@ Put your problem-solving skills to the test and implement new strategies for cla
 #### Strategy as a plugin
 The straightforward method to design a strategy is to implement it as a plugin. Plugins extend an existing strategy by implementing a particular set of callbacks. You can implement your plugin in `strategies/my_plugin.py`, and add it a base strategy (e.g. Naive strategy) in `train.py`.
 
-#### Strategy by as a sub-class
+#### Strategy as a subclass
 Another way to implement your strategy is to define a class that inherits from `SupervisedTemplate` class. This method is suggested only when the training epoch loops or other behaviors in a strategy are different from thed default ones defined in the `SupervisedTemplate`, and cannot be implemented by extending existing strategies via plugins.  
 
 
