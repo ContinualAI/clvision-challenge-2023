@@ -91,7 +91,7 @@ def main(args):
 
     # --- Training Loops
     for experience in benchmark.train_stream:
-        cl_strategy.train(experience)
+        cl_strategy.train(experience, num_workers=args.num_workers)
 
     # --- Make prediction on test-set samples
     predictions = predict_test_set(cl_strategy.model,
@@ -116,22 +116,11 @@ def predict_test_set(model, test_set):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--cuda",
-        type=int,
-        default=0,
-        help="Select zero-indexed cuda device. -1 to use CPU.",
-    )
-    parser.add_argument(
-        "--config_file",
-        type=str,
-        default="config1.pkl",
-    )
-    parser.add_argument(
-        "--seed",
-        type=int,
-        default=0,
-    )
+    parser.add_argument("--cuda", type=int, default=0,
+                        help="Select zero-indexed cuda device. -1 to use CPU.")
+    parser.add_argument("--config_file", type=str, default="config1.pkl")
+    parser.add_argument("--seed", type=int, default=0)
+    parser.add_argument("--num_workers", type=int, default=2)
 
     args = parser.parse_args()
     main(args)
