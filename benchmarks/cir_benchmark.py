@@ -86,6 +86,9 @@ def generate_benchmark(
 
     benchmark.seen_classes = [classes_seen_sofar(i) for i in
                               range(len(benchmark.present_classes_in_each_exp))]
+
+    benchmark.n_classes = n_classes
+
     return benchmark
 
 

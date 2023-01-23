@@ -10,6 +10,8 @@ import argparse
 import torch
 from torch.nn import CrossEntropyLoss
 import torch.optim.lr_scheduler
+from torch.utils.data import DataLoader
+
 from avalanche.training.supervised import Naive
 from avalanche.training.plugins import EWCPlugin, LwFPlugin
 from avalanche.logging import InteractiveLogger
@@ -20,13 +22,16 @@ from avalanche.evaluation.metrics import (
     loss_metrics,
 )
 
-from benchmarks import SplitCIFAR10
+from benchmarks import get_cifar_based_benchmark
 from models import SlimResNet18
 from utils.competition_plugins import (
     GPUMemoryChecker,
     RAMChecker,
     TimeChecker
 )
+
+from strategies.my_plugin import MyPlugin
+from strategies.my_strategy import MyStrategy
 
 
 def main(args):
@@ -38,7 +43,8 @@ def main(args):
     )
 
     # --- Benchmark
-    benchmark = SplitCIFAR10(n_experiences=5)
+    benchmark = get_cifar_based_benchmark(scenario_config=args.config_file,
+                                          seed=args.seed)
 
     # --- Model
     model = SlimResNet18(n_classes=benchmark.n_classes)
@@ -66,7 +72,8 @@ def main(args):
     # --- Your Plugins
     plugins = [
         EWCPlugin(ewc_lambda=0.5),
-        LwFPlugin(alpha=1.0)
+        LwFPlugin(alpha=1.0),
+        MyPlugin()
     ]
 
     # --- Strategy
@@ -74,7 +81,7 @@ def main(args):
         model,
         torch.optim.Adam(model.parameters(), lr=0.001),
         CrossEntropyLoss(),
-        train_mb_size=1000,
+        train_mb_size=64,
         train_epochs=1,
         eval_mb_size=100,
         device=device,
@@ -83,11 +90,28 @@ def main(args):
     )
 
     # --- Training Loops
-    results = []
     for experience in benchmark.train_stream:
         cl_strategy.train(experience)
 
-        results.append(cl_strategy.eval(benchmark.test_stream))
+    # --- Make prediction on test-set samples
+    predictions = predict_test_set(cl_strategy.model,
+                                   benchmark.test_stream[0].dataset)
+    torch.save(predictions, "predictions.pt")
+
+
+def predict_test_set(model, test_set):
+    print("Making prediction on test-set samples")
+
+    model.eval()
+    dataloader = DataLoader(test_set, batch_size=64, shuffle=False)
+    preds = []
+    with torch.no_grad():
+        for (x, _, _) in dataloader:
+            pred = model(x).detach().cpu()
+            preds.append(pred)
+    preds = torch.cat(preds, dim=0)
+
+    return preds
 
 
 if __name__ == "__main__":
@@ -98,5 +122,16 @@ if __name__ == "__main__":
         default=0,
         help="Select zero-indexed cuda device. -1 to use CPU.",
     )
+    parser.add_argument(
+        "--config_file",
+        type=str,
+        default="config1.pkl",
+    )
+    parser.add_argument(
+        "--seed",
+        type=int,
+        default=0,
+    )
+
     args = parser.parse_args()
     main(args)
