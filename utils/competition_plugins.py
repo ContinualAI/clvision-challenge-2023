@@ -30,11 +30,13 @@ class GPUMemoryChecker(SupervisedPlugin):
 
         super().__init__()
         self.max_allowed = max_allowed
+        self.gpu_allocated = 0
         self.device = device
 
     def after_training_exp(self, strategy: SupervisedTemplate, *args, **kwargs):
         gpu_allocated = torch.cuda.max_memory_allocated(device=self.device)
         gpu_allocated = gpu_allocated // 1000000
+        self.gpu_allocated = gpu_allocated
         print(f"MAX GPU MEMORY ALLOCATED: {gpu_allocated} MB")
 
         if gpu_allocated > self.max_allowed:
@@ -59,10 +61,12 @@ class RAMChecker(SupervisedPlugin):
 
         super().__init__()
         self.max_allowed = max_allowed
+        self.ram_allocated = 0
 
     def after_training_exp(self, strategy: SupervisedTemplate, *args, **kwargs):
         ram_allocated = psutil.Process().memory_info().rss
         ram_allocated = ram_allocated // 1000000
+        self.ram_allocated = ram_allocated
         print(f"MAX RAM ALLOCATED: {ram_allocated} MB")
 
         if ram_allocated > self.max_allowed:
@@ -88,10 +92,12 @@ class TimeChecker(SupervisedPlugin):
         super().__init__()
         self.max_allowed = max_allowed
         self.start = time.time()
+        self.time_spent = 0
 
     def after_training_exp(self, strategy: SupervisedTemplate, *args, **kwargs):
         time_spent = time.time() - self.start
         time_spent = time_spent // 60
+        self.time_spent = time_spent
         print(f"TIME SPENT: {time_spent} MINUTES")
 
         if time_spent > self.max_allowed:

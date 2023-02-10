@@ -11,6 +11,7 @@ import torch
 from torch.nn import CrossEntropyLoss
 import torch.optim.lr_scheduler
 from torch.utils.data import DataLoader
+import numpy as np
 
 from avalanche.training.supervised import Naive
 from avalanche.training.plugins import EWCPlugin, LwFPlugin
@@ -95,11 +96,15 @@ def main(args):
 
     # --- Make prediction on test-set samples
     predictions = predict_test_set(cl_strategy.model,
-                                   benchmark.test_stream[0].dataset)
-    torch.save(predictions, "predictions.pt")
+                                   benchmark.test_stream[0].dataset,
+                                   device)
+
+    # Save predictions
+    output_name = f"pred_{args.config_file.split('.')[0]}_{args.run_name}.npy"
+    np.save(output_name, predictions)
 
 
-def predict_test_set(model, test_set):
+def predict_test_set(model, test_set, device):
     print("Making prediction on test-set samples")
 
     model.eval()
@@ -107,9 +112,11 @@ def predict_test_set(model, test_set):
     preds = []
     with torch.no_grad():
         for (x, _, _) in dataloader:
-            pred = model(x).detach().cpu()
+            pred = model(x.to(device)).detach().cpu()
             preds.append(pred)
+
     preds = torch.cat(preds, dim=0)
+    preds = torch.argmax(preds, dim=1).numpy()
 
     return preds
 
@@ -119,6 +126,7 @@ if __name__ == "__main__":
     parser.add_argument("--cuda", type=int, default=0,
                         help="Select zero-indexed cuda device. -1 to use CPU.")
     parser.add_argument("--config_file", type=str, default="config1.pkl")
+    parser.add_argument("--run_name", type=str, default="run1")
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--num_workers", type=int, default=2)
 

@@ -15,13 +15,13 @@ def set_random_seed(seed):
     torch.backends.cudnn.enabled = False
 
 
-def plot_scenario(scenario_table):
+def plot_scenario(scenario_table, name=None):
     """
     :param scenario_table: a C x E tensor (C: # of classes, E: # of experiences)
     :return:
     """
     fig, ax = plt.subplots(1, 1, figsize=(10, 6))
-    fig.tight_layout()
+
 
     # Colors
     n_classes = scenario_table.shape[0]
@@ -40,3 +40,7 @@ def plot_scenario(scenario_table):
 
     ax.set_xlabel("Experience", fontsize=12)
     ax.set_ylabel("Class", fontsize=12)
+
+    fig.tight_layout()
+    if name is not None:
+        plt.savefig(f"scenario_{name}.png")
