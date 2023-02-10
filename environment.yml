@@ -1,0 +1,23 @@
+name: clvision23-challenge
+channels:
+- conda-forge
+- pytorch
+dependencies:
+- pip
+- psutil
+- conda-forge::gputil
+- wandb
+- tensorboard>=1.15
+- scikit-learn
+- matplotlib
+- seaborn
+- numpy
+- conda-forge::quadprog
+- tqdm
+- conda-forge::torchmetrics
+- python=3.9
+- pytorch::pytorch>=1.8
+- pytorch::torchvision
+- pytorch::torchaudio
+- pip:
+    - gdown
