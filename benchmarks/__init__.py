@@ -1,9 +1,17 @@
 import dill
 
+from avalanche.benchmarks.datasets import CIFAR100
+
 from .cir_benchmark import generate_benchmark
 
 
 def get_cifar_based_benchmark(scenario_config, seed):
+    # Download dataset if not available
+    _ = CIFAR100(root="./data/datasets", train=True,
+                 transform=None, download=True)
+    _ = CIFAR100(root="./data/datasets", train=False,
+                 transform=None, download=True)
+
     # Load challenge datasets
     with open("./data/challenge_train_set.pkl", "rb") as pkl_file:
         train_set = dill.load(pkl_file)

@@ -83,7 +83,7 @@ def main(args):
         torch.optim.Adam(model.parameters(), lr=0.001),
         CrossEntropyLoss(),
         train_mb_size=64,
-        train_epochs=1,
+        train_epochs=20,
         eval_mb_size=100,
         device=device,
         plugins=competition_plugins + plugins,

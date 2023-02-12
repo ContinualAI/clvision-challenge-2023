@@ -1,3 +1,14 @@
+################################################################################
+# Copyright (c) 2022 ContinualAI.                                              #
+# Copyrights licensed under the MIT License.                                   #
+# See the accompanying LICENSE file for terms.                                 #
+#                                                                              #
+# Date: 02-03-2022                                                             #
+# Author(s): Gabriele Graffieti, Lorenzo Pellegrini                            #
+# E-mail: contact@continualai.org                                              #
+# Website: avalanche.continualai.org                                           #
+################################################################################
+
 name: clvision23-challenge
 channels:
 - conda-forge
@@ -10,14 +21,19 @@ dependencies:
 - tensorboard>=1.15
 - scikit-learn
 - matplotlib
-- seaborn
 - numpy
 - conda-forge::quadprog
 - tqdm
+- conda-forge::pycocotools
 - conda-forge::torchmetrics
 - python=3.9
 - pytorch::pytorch>=1.8
 - pytorch::torchvision
 - pytorch::torchaudio
 - pip:
+    - pytorchcv
     - gdown
+    - ctrl-benchmark
+    - gym
+    - higher
+    - lvis
