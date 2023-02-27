@@ -89,14 +89,14 @@ You can use more than one logger at the same time!
 # IDE-specific hints
 
 - When using **Visual Studio Code**, to get a proper type checking and smooth terminal execution, consider:
-    - Installing the official [Python language support](https://marketplace.visualstudio.com/items?itemName=ms-python.python).
+    - installing the official [Python language support](https://marketplace.visualstudio.com/items?itemName=ms-python.python).
     - creating a `.env` file in the root of the project with the following content:
         ```
         PYTHONPATH=:<project_path>/avalanche:<project_path>
         ```
         where you should replace `<project_path>` with the *absolute path* of the project directory. Alas, utilities like `${workspaceFolder}` will not work here.
 
-    - a `.vscode/settings.json` file. Create the `.vscode` directory and `settings.json` file if they do not exist.
+    - creating a `.vscode/settings.json` file. Create the `.vscode` directory and `settings.json` file if they do not exist.
     In the `settings.json` file, we recommend pasting the following content:
         ```json
         {
@@ -113,4 +113,4 @@ You can use more than one logger at the same time!
             "python.languageServer": "Pylance"
         }
         ```
-    After creating these 2 files, close and reopen Visual Studio Code.
+    Once you have followed these steps, close and reopen Visual Studio Code.
