@@ -101,8 +101,7 @@ You can use more than one logger at the same time!
         ```json
         {
             "terminal.integrated.env.linux": {
-                "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}:${workspaceFolder}/avalanche",
-                "CUDA_VISIBLE_DEVICES": "1"
+                "PYTHONPATH": "${env:PYTHONPATH}:${workspaceFolder}:${workspaceFolder}/avalanche"
             },
             "python.envFile": "${workspaceFolder}/.env",
             "python.terminal.activateEnvironment": true,
