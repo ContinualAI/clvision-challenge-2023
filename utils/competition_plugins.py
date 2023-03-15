@@ -101,7 +101,7 @@ class TimeChecker(SupervisedPlugin):
         print(f"TIME SPENT: {time_spent} MINUTES")
 
         if time_spent > self.max_allowed:
-            raise MaxGPUAllocationExceeded(time_spent, self.max_allowed)
+            raise TimeExceeded(time_spent, self.max_allowed)
 
 
 __all__ = ["GPUMemoryChecker", "RAMChecker", "TimeChecker"]
