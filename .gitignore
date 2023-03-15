@@ -127,3 +127,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Dataset path
+data/datasets
+
+# Prediction files
+pred_*.npy
+
+# VSCode files
+.vscode/
