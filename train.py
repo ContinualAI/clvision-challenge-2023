@@ -125,7 +125,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--cuda", type=int, default=0,
                         help="Select zero-indexed cuda device. -1 to use CPU.")
-    parser.add_argument("--config_file", type=str, default="config_test.pkl")
+    parser.add_argument("--config_file", type=str, default="config_s1.pkl")
     parser.add_argument("--run_name", type=str, default="run1")
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--num_workers", type=int, default=2)
