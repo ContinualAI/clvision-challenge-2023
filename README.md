@@ -4,6 +4,10 @@ This is the official starting repository for the Continual Learning Challenge he
 
 Please refer to the [**challenge website**](https://sites.google.com/view/clvision2023/challenge) for more details!
 
+To participate in the challenge, use the link below:
+
+https://codalab.lisn.upsaclay.fr/competitions/11559
+
 ## Getting started
 
 The devkit is based on the [Avalanche library](https://github.com/ContinualAI/avalanche). We warmly recommend looking at the [documentation](https://avalanche.continualai.org/) (especially the ["Zero To Hero tutorials"](https://avalanche.continualai.org/from-zero-to-hero-tutorial/01_introduction)) if this is your first time using it!
