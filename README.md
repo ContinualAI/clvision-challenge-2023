@@ -10,7 +10,7 @@ https://codalab.lisn.upsaclay.fr/competitions/11559
 
 ## Repository Updates
 
-<span style="color:red;">26.03: Increase the RAM usage limit from 3200 MBs -> 4000 MBs</span>
+<p style="color:red;">26.03: Increase the RAM usage limit from 3200 MBs -> 4000 MBs</p>
 
 ## Getting started
 
