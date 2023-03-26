@@ -8,6 +8,10 @@ To participate in the challenge, use the link below:
 
 https://codalab.lisn.upsaclay.fr/competitions/11559
 
+## Repository Updates
+
+<span style="color:red;">26.03: Increase the RAM usage limit from 3200 MBs -> 4000 MBs</span>
+
 ## Getting started
 
 The devkit is based on the [Avalanche library](https://github.com/ContinualAI/avalanche). We warmly recommend looking at the [documentation](https://avalanche.continualai.org/) (especially the ["Zero To Hero tutorials"](https://avalanche.continualai.org/from-zero-to-hero-tutorial/01_introduction)) if this is your first time using it!
