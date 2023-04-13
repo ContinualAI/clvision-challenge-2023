@@ -27,9 +27,9 @@ dependencies:
 - conda-forge::pycocotools
 - conda-forge::torchmetrics
 - python=3.9
-- pytorch::pytorch>=1.8
-- pytorch::torchvision
-- pytorch::torchaudio
+- pytorch::pytorch>=1.8, <2.0
+- pytorch::torchvision>=0.9.0, <0.15
+- pytorch::torchaudio>=0.8.0, <2.0
 - pip:
     - pytorchcv
     - gdown
