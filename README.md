@@ -10,7 +10,9 @@ https://codalab.lisn.upsaclay.fr/competitions/11559
 
 ## Repository Updates
 
-<p style="color:red;">26.03: Increase the RAM usage limit from 3200 MBs -> 4000 MBs</p>
+<p style="color:red;">18.04: Removed the RAM and GPU memory usage plugins.</p>
+
+<p style="color:red;">26.03: Increased the RAM usage limit from 3200 MBs -> 4000 MBs</p>
 
 ## Getting started
 
